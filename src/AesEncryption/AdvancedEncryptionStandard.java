@@ -2,6 +2,7 @@ package AesEncryption;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 import java.util.Random;
 
 public class AdvancedEncryptionStandard {
@@ -9,22 +10,21 @@ public class AdvancedEncryptionStandard {
     private static final String ALGORITHM = "AES";
 
     //     Encrypts the given plain text
-    public byte[] encrypt(byte[] plainText) throws Exception {
+    public byte[] encrypt(String plainText) throws Exception {
         SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
-        return cipher.doFinal(plainText);
+        byte[] encryptedData = cipher.doFinal(plainText.getBytes("UTF-8"));
+        return encryptedData;
     }
 
     //    Decrypts the given byte array
-    public byte[] decrypt(byte[] cipherText) throws Exception {
+    public String decrypt(byte[] cipherText) throws Exception {
         SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
-
-        return cipher.doFinal(cipherText);
-
+        String decryptedData = new String(cipher.doFinal(cipherText));
+        return decryptedData;
     }
 
     //    creates random key for aes encryption
@@ -37,9 +37,8 @@ public class AdvancedEncryptionStandard {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        String saltStr = salt.toString();
-        key = saltStr.getBytes();
-        return key;
+
+        return salt.toString().getBytes();
     }
 
     public AdvancedEncryptionStandard(byte[] key) {

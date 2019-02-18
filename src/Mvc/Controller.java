@@ -52,7 +52,7 @@ public class Controller implements Initializable {
     private RadioButton radioKey;
     @FXML
     private TextField txtKey;
-
+    private AdvancedEncryptionStandard aes;
 
     //methods
     @FXML
@@ -63,8 +63,13 @@ public class Controller implements Initializable {
             return;
         }
 
+
+        //before here str must be encrypted
+        byte[] secretKey = txtKey.getText().getBytes();
+        aes = new AdvancedEncryptionStandard(secretKey);
         try {
-            model.hideMessage(str);
+            byte[] encryptedMessage = aes.encrypt(str);
+            model.hideMessage(new String(encryptedMessage));
             new AlertCreator("Message has been hidden!", Alert.AlertType.CONFIRMATION);
         } catch (Exception e) {
             new AlertCreator("Message could not be hidden!", Alert.AlertType.ERROR);
@@ -78,11 +83,26 @@ public class Controller implements Initializable {
 
     @FXML
     public void extractMessage() {
+        String result = null;
+
         if (model.getImage() == null || txtKey.getText().length() == 0) {
             return;
         }
         String s = model.extractMessage(model.getImage());
-        txtPictureInfo.appendText("\nExtracted Message:\n_______________________________\n" + s);
+
+        //after here string has to be decrypted
+        byte[] secretKey = txtKey.getText().getBytes();
+        aes = new AdvancedEncryptionStandard(secretKey);
+        try {
+           String decryptedMessage = aes.decrypt(s.getBytes());
+           result = decryptedMessage;
+
+        } catch (Exception e) {
+            new AlertCreator("No message could be extracted!", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+
+        txtPictureInfo.appendText("\nExtracted Message:\n_______________________________\n" + result);
     }
 
     @FXML
