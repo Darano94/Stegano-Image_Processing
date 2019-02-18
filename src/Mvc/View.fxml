@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="614.0" prefWidth="1254.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mvc.Controller">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="btnOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
+                    </items>
+                    <items>
+                        <MenuItem fx:id="btnClose" mnemonicParsing="false" onAction="#closeSMIG" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem fx:id="btnSave" mnemonicParsing="false" onAction="#saveImage" text="Save" />
+                    </items>
+                    <items>
+                        <MenuItem fx:id="btnDelete" mnemonicParsing="false" onAction="#resetImageview" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="btnHelp" mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="244.0" minViewportWidth="400.0">
+                    <content>
+                        <ImageView fx:id="imgView" pickOnBounds="true" preserveRatio="true" />
+                    </content>
+                </ScrollPane>
+                <ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="255.0" minViewportWidth="400.0">
+                    <content>
+                        <ImageView fx:id="txtModifiedImage" pickOnBounds="true" preserveRatio="true" />
+                    </content>
+                </ScrollPane>
+            </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+        </HBox>
+    </center>
+    <right>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <TextArea fx:id="txtPictureInfo" editable="false" prefHeight="200.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets right="5.0" />
+               </VBox.margin></TextArea>
+                <HBox>
+                    <children>
+                        <VBox>
+                            <children>
+                                <Slider fx:id="sliderKernelsize" />
+                                <Label fx:id="lblKernelsize" text="Kernelsize: " />
+                            </children>
+                        </VBox>
+                        <Button fx:id="btnBoxBlur" mnemonicParsing="false" onAction="#boxBlur" text="Box Blur">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></Button>
+                    </children>
+                </HBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="3.0" />
+               </VBox.margin>
+            </Separator>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                  <TextArea fx:id="txtAreaInput" prefHeight="100.0" prefWidth="108.0" />
+                  <VBox prefHeight="100.0" prefWidth="105.0">
+                     <children>
+                        <HBox>
+                           <children>
+                                        <Button fx:id="btnHideMSG" mnemonicParsing="false" onAction="#hideMessage" text="Hide!" />
+                                        <Button fx:id="btnExtract" mnemonicParsing="false" onAction="#extractMessage" text="Extract" />
+                           </children>
+                        </HBox>
+                        <VBox>
+                           <VBox.margin>
+                              <Insets bottom="9.0" top="26.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label fx:id="lblStego" text="&lt;-- Enter Message">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="9.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <RadioButton fx:id="radioKey" mnemonicParsing="false" onAction="#rndKey_clicked" prefHeight="56.0" prefWidth="98.0" text="create rnd Key">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </RadioButton>
+                        <TextField fx:id="txtKey" prefHeight="107.0" prefWidth="101.0" promptText="txtKey" text="enter key here" />
+                        <Separator prefHeight="112.0" prefWidth="103.0" valignment="BOTTOM" />
+                     </children>
+                  </VBox>
+                    </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </right>
+    <left>
+        <GridPane fx:id="gridPaneToolbox" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+    </left>
+</BorderPane>
