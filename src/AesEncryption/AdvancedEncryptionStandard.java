@@ -28,7 +28,7 @@ public class AdvancedEncryptionStandard {
 
     //    creates random key for aes encryption
     public static byte[] createRandomKey(int size) {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!$%&/()=?*'#+-:;.,_";
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!$%&/()=?*'#+-:;.,_"; //no § because its 2-bit and then our key has overflow
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < size) { // length of key
