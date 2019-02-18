@@ -1,14 +1,11 @@
 package Steganography;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-
+import Main.AlertCreator;
+        import javafx.scene.control.Alert;
+        import java.awt.Graphics2D;
+        import java.awt.image.BufferedImage;
+        import java.awt.image.DataBufferByte;
+        import java.awt.image.WritableRaster;
 
 public class SteganoProcessing {
 
@@ -24,32 +21,8 @@ public class SteganoProcessing {
             decode = decode_text(get_byte_data(img));
             return (new String(decode));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "There is no hidden message in this image!", "Error", JOptionPane.ERROR_MESSAGE);
+            new AlertCreator("No hidden message was found", Alert.AlertType.INFORMATION);
             return "";
-        }
-    }
-
-    private BufferedImage getImage(String f) {
-        BufferedImage image = null;
-        File file = new File(f);
-
-        try {
-            image = ImageIO.read(file);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Image could not be read!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return image;
-    }
-
-    private boolean setImage(BufferedImage image, File file, String ext) {
-        try {
-            file.delete(); //delete resources used by the File
-            ImageIO.write(image, ext, file);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "File could not be saved!", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
         }
     }
 
@@ -62,7 +35,7 @@ public class SteganoProcessing {
             encode_text(img, len, 0); //0 first positiong
             encode_text(img, msg, 32); //4 bytes of space for length: 4bytes*8bit = 32 bits
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Target File cannot hold message!", "Error", JOptionPane.ERROR_MESSAGE);
+            new AlertCreator("File cannot hold message!", Alert.AlertType.ERROR);
         }
         return image;
     }
@@ -82,7 +55,6 @@ public class SteganoProcessing {
         return buffer.getData();
     }
 
-
     private byte[] bit_conversion(int i) {
         //only using 4 bytes
         byte byte3 = (byte) ((i & 0xFF000000) >>> 24); //0
@@ -92,7 +64,6 @@ public class SteganoProcessing {
         //{0,0,0,byte0} is equivalent, since all shifts >=8 will be 0
         return (new byte[]{byte3, byte2, byte1, byte0});
     }
-
 
     private byte[] encode_text(byte[] image, byte[] addition, int offset) {
         //check that the data + offset will fit in the image

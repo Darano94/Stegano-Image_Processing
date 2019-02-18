@@ -1,19 +1,12 @@
-package Aes256;
+package AesEncryption;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 import java.util.Random;
 
 public class AdvancedEncryptionStandard {
     private byte[] key;
-
     private static final String ALGORITHM = "AES";
-
-    public AdvancedEncryptionStandard(byte[] key) {
-        this.key = key;
-    }
-
 
     //     Encrypts the given plain text
     public byte[] encrypt(byte[] plainText) throws Exception {
@@ -47,5 +40,9 @@ public class AdvancedEncryptionStandard {
         String saltStr = salt.toString();
         key = saltStr.getBytes();
         return key;
+    }
+
+    public AdvancedEncryptionStandard(byte[] key) {
+        this.key = key;
     }
 }

@@ -1,6 +1,6 @@
 package Mvc;
 
-import Aes256.AdvancedEncryptionStandard;
+import AesEncryption.AdvancedEncryptionStandard;
 import Main.AlertCreator;
 import javafx.beans.binding.Bindings;
 import javafx.embed.swing.SwingFXUtils;
