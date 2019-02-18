@@ -2,7 +2,6 @@ package AesEncryption;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 import java.util.Random;
 
 public class AdvancedEncryptionStandard {
@@ -29,8 +28,7 @@ public class AdvancedEncryptionStandard {
 
     //    creates random key for aes encryption
     public static byte[] createRandomKey(int size) {
-        byte[] key;
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!§$%&/()=?*'#+-:;.,_";
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz!$%&/()=?*'#+-:;.,_";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < size) { // length of key

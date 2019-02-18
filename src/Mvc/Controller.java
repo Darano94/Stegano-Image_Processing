@@ -63,19 +63,19 @@ public class Controller implements Initializable {
             return;
         }
 
-
-        //before here str must be encrypted
         byte[] secretKey = txtKey.getText().getBytes();
         aes = new AdvancedEncryptionStandard(secretKey);
+
         try {
             byte[] encryptedMessage = aes.encrypt(str);
-            model.hideMessage(new String(encryptedMessage));
+            model.hideMessage(encryptedMessage);
             new AlertCreator("Message has been hidden!", Alert.AlertType.CONFIRMATION);
         } catch (Exception e) {
             new AlertCreator("Message could not be hidden!", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
         txtAreaInput.setText("");
+
         //when decrypting image straight after hiding message
         Image image = SwingFXUtils.toFXImage(model.getModified_image(), null);
         txtModifiedImage.setImage(image);
@@ -88,20 +88,19 @@ public class Controller implements Initializable {
         if (model.getImage() == null || txtKey.getText().length() == 0) {
             return;
         }
-        String s = model.extractMessage(model.getImage());
+        byte[] cipherText = model.extractMessage(model.getImage());
 
-        //after here string has to be decrypted
         byte[] secretKey = txtKey.getText().getBytes();
         aes = new AdvancedEncryptionStandard(secretKey);
+
         try {
-           String decryptedMessage = aes.decrypt(s.getBytes());
-           result = decryptedMessage;
+            String decryptedMessage = aes.decrypt(cipherText);
+            result = decryptedMessage;
 
         } catch (Exception e) {
             new AlertCreator("No message could be extracted!", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
-
         txtPictureInfo.appendText("\nExtracted Message:\n_______________________________\n" + result);
     }
 

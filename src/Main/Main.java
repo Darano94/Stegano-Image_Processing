@@ -27,7 +27,7 @@ public class Main extends Application {
         controller.setScene(scene);
         controller.setPrimaryStage(primaryStage);
 
-        primaryStage.setTitle("SMIG - Steganography made in Germany");
+        primaryStage.setTitle("Steganography and Imageprocessing");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

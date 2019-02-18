@@ -1,35 +1,35 @@
 package Steganography;
 
 import Main.AlertCreator;
-        import javafx.scene.control.Alert;
-        import java.awt.Graphics2D;
-        import java.awt.image.BufferedImage;
-        import java.awt.image.DataBufferByte;
-        import java.awt.image.WritableRaster;
+import javafx.scene.control.Alert;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 
 public class SteganoProcessing {
 
-    public BufferedImage encode(BufferedImage img, String message) {
+    public BufferedImage encode(BufferedImage img, byte[] message) {
         BufferedImage image = user_space(img);
         image = add_text(image, message);
         return image;
     }
 
-    public String decode(BufferedImage img) {
+    public byte[] decode(BufferedImage img) {
         byte[] decode;
         try {
             decode = decode_text(get_byte_data(img));
-            return (new String(decode));
+            return decode;
         } catch (Exception e) {
             new AlertCreator("No hidden message was found", Alert.AlertType.INFORMATION);
-            return "";
+            return null;
         }
     }
 
-    private BufferedImage add_text(BufferedImage image, String text) {
+    private BufferedImage add_text(BufferedImage image, byte[] msg) {
         //convert all items to byte arrays: image, message, message length
         byte img[] = get_byte_data(image);
-        byte msg[] = text.getBytes();
         byte len[] = bit_conversion(msg.length);
         try {
             encode_text(img, len, 0); //0 first positiong

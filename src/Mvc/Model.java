@@ -25,14 +25,14 @@ public class Model {
         }
     }
 
-    void hideMessage(String msg) {
+    void hideMessage(byte[] msg) {
         if (msg != null) {
             stego = new SteganoProcessing();
             this.modified_image = stego.encode(getImage(), msg);
         }
     }
 
-    String extractMessage(BufferedImage img) {
+    byte[] extractMessage(BufferedImage img) {
         stego = new SteganoProcessing();
         return stego.decode(img);
     }
