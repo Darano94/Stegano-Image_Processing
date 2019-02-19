@@ -29,8 +29,8 @@ public class SteganoProcessing {
 
     private BufferedImage add_text(BufferedImage image, byte[] msg) {
         //convert all items to byte arrays: image, message, message length
-        byte img[] = get_byte_data(image);
-        byte len[] = bit_conversion(msg.length);
+        byte[] img = get_byte_data(image);
+        byte[] len = bit_conversion(msg.length);
         try {
             encode_text(img, len, 0); //0 first positiong
             encode_text(img, msg, 32); //4 bytes of space for length: 4bytes*8bit = 32 bits
@@ -71,9 +71,8 @@ public class SteganoProcessing {
             throw new IllegalArgumentException("File not long enough!");
         }
         //loop through each addition byte
-        for (int i = 0; i < addition.length; ++i) {
+        for (int add : addition) {
             //loop through the 8 bits of each byte
-            int add = addition[i];
             //ensure the new offset value carries on through both loops
             for (int bit = 7; bit >= 0; --bit, ++offset) {
                 //assign an integer to b, shifted by bit spaces AND 1

@@ -11,11 +11,11 @@ public class Model {
     private int width, height;
     private SteganoProcessing stego;
 
-    public BufferedImage getImage() {
+    BufferedImage getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) throws IOException {
+    void setImage(BufferedImage image) throws IOException {
         if (image != null) {
             this.image = image;
             setWidth(image.getWidth());
@@ -37,27 +37,27 @@ public class Model {
         return stego.decode(img);
     }
 
-    public BufferedImage getModified_image() {
+    BufferedImage getModified_image() {
         return modified_image;
     }
 
-    public void setModified_image(BufferedImage modified_image) {
+    void setModified_image(BufferedImage modified_image) {
         this.modified_image = modified_image;
     }
 
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    private void setWidth(int width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    private void setHeight(int height) {
         this.height = height;
     }
 }

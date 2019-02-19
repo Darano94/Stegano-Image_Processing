@@ -49,23 +49,14 @@
         </MenuBar>
     </top>
     <center>
-        <HBox BorderPane.alignment="CENTER">
-            <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="244.0" minViewportWidth="400.0">
-                    <content>
-                        <ImageView fx:id="imgView" pickOnBounds="true" preserveRatio="true" />
-                    </content>
-                </ScrollPane>
-                <ScrollPane fitToHeight="true" fitToWidth="true" minViewportHeight="255.0" minViewportWidth="400.0">
-                    <content>
-                        <ImageView fx:id="txtModifiedImage" pickOnBounds="true" preserveRatio="true" />
-                    </content>
-                </ScrollPane>
-            </children>
+      <ScrollPane>
+         <content>
+                  <ImageView fx:id="imgView" pickOnBounds="true" preserveRatio="true" />
+         </content>
          <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets right="5.0" />
          </BorderPane.margin>
-        </HBox>
+      </ScrollPane>
     </center>
     <right>
         <VBox BorderPane.alignment="CENTER">
@@ -124,7 +115,10 @@
                               <Insets top="5.0" />
                            </padding>
                         </RadioButton>
-                        <TextField fx:id="txtKey" prefHeight="107.0" prefWidth="101.0" promptText="txtKey" text="enter key here" />
+                        <TextField fx:id="txtKey" prefHeight="107.0" prefWidth="101.0" promptText="txtKey" text="enter key here">
+                           <VBox.margin>
+                              <Insets right="3.0" />
+                           </VBox.margin></TextField>
                         <Separator prefHeight="112.0" prefWidth="103.0" valignment="BOTTOM" />
                      </children>
                   </VBox>

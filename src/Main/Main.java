@@ -20,12 +20,11 @@ public class Main extends Application {
 
         loader.setLocation(getClass().getResource("/Mvc/View.fxml"));
         loader.setControllerFactory(param -> controller);
+        controller.setPrimaryStage(primaryStage); //for focusing OpenFileDialogue
 
         Parent root = (BorderPane) loader.load();
         Scene scene = new Scene(root, 1240, 720);
 
-        controller.setScene(scene);
-        controller.setPrimaryStage(primaryStage);
 
         primaryStage.setTitle("Steganography and Imageprocessing");
         primaryStage.setScene(scene);

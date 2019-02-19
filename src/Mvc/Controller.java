@@ -26,33 +26,22 @@ public class Controller implements Initializable {
     private final Model model;
     private FileChooser fc = new FileChooser();
     private Stage primaryStage;
-    private Scene scene;
+    private AdvancedEncryptionStandard aes;
 
     @FXML
     private ImageView imgView;
     @FXML
-    private Button btnExtract;
-    @FXML
-    private ImageView txtModifiedImage;
-    @FXML
-    private GridPane gridPaneToolbox;
-    @FXML
     private TextArea txtPictureInfo;
-    @FXML
-    private Button btnBoxBlur;
     @FXML
     private Slider sliderKernelsize;
     @FXML
     private Label lblKernelsize;
-    @FXML
-    private Button btnHideMSG;
     @FXML
     private TextArea txtAreaInput;
     @FXML
     private RadioButton radioKey;
     @FXML
     private TextField txtKey;
-    private AdvancedEncryptionStandard aes;
 
     //methods
     @FXML
@@ -78,7 +67,7 @@ public class Controller implements Initializable {
 
         //when decrypting image straight after hiding message
         Image image = SwingFXUtils.toFXImage(model.getModified_image(), null);
-        txtModifiedImage.setImage(image);
+        imgView.setImage(image);
     }
 
     @FXML
@@ -94,8 +83,7 @@ public class Controller implements Initializable {
         aes = new AdvancedEncryptionStandard(secretKey);
 
         try {
-            String decryptedMessage = aes.decrypt(cipherText);
-            result = decryptedMessage;
+            result = aes.decrypt(cipherText);
 
         } catch (Exception e) {
             new AlertCreator("No message could be extracted!", Alert.AlertType.ERROR);
@@ -118,7 +106,6 @@ public class Controller implements Initializable {
         txtPictureInfo.setWrapText(true);
         sliderKernelsize.setMax(30);
         lblKernelsize.textProperty().bind(Bindings.format("Kernelsize: %.2f", sliderKernelsize.valueProperty()));
-        StringBuilder msg = new StringBuilder();
         radioKey.setSelected(true);
         txtKey.setText(new String(AdvancedEncryptionStandard.createRandomKey(16)));
     }
@@ -127,7 +114,6 @@ public class Controller implements Initializable {
     public void openFile() {
         //reset TextArea for picture info
         txtPictureInfo.setText("");
-        txtModifiedImage.setImage(null);
         this.fc.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Image Files", "png", "jpg", "jpeg"));
         this.fc.setTitle("Open an Image");
         File selectedImage = this.fc.showOpenDialog(this.primaryStage);
@@ -145,7 +131,6 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void closeSMIG() {
@@ -165,7 +150,7 @@ public class Controller implements Initializable {
 
                     if (file.getName().matches(".*\\.(jpg|JPG|png)$")) {
                         String extension = file.getName().substring(file.getName().lastIndexOf(".") + 1);
-                        System.out.println(file.getName() + extension);
+                        System.out.println("Saved as '" + file.getName() + "' in " + file.getAbsolutePath());
                         if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg"))
                         // TODO: 14.02.2019 saving jpg without corrupting it
                         {
@@ -187,7 +172,6 @@ public class Controller implements Initializable {
         }
     }
 
-
     // TODO: 14.02.2019 not working properyl (prob. should use Properties and proper bindings)
     @FXML
     public void resetImageview() {
@@ -207,10 +191,6 @@ public class Controller implements Initializable {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
     }
 
     public Controller(Model model) {
